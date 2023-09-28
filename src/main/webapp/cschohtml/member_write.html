@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+<table border="0" width="600">
+	<tr bgcolor="yellow">
+		<th height="30"><a href="member_write.html">회원가입</a></th>	
+		<th><a href="border_write.html">게시판</a></th>
+		<th><a href="login_write.html">로그인</a></th>
+	</tr>	
+</table>
+<p/><p/>
+<form name="frm" method="post" action="save.jsp">
+<table border="1" width="600">
+	<tr>
+		<th>아이디</td><td> <input type="text" name="userid" size="30"></td>
+	</tr>
+	<tr>
+		<th>패스워드</th><td> <input type="password" name="pass" size="30"></td>
+	</tr>
+	<tr>
+		<th>이름</th><td><input type="text" name="username" size="30"></td>
+	</tr>
+	<tr>
+		<th>성별</th>
+		<td>
+			<input type="radio" name="gender" value="M">남
+			<input type="radio" name="gender" value="F">여
+		</td>
+	</tr>
+	<tr>
+		<th>출생년도</th>
+		<td>
+			<select name="year"><option>2000년</option><option>2001년</option></select> 
+			<select name="month"><option>2월</option><option>3월</option></select> 
+			<select name="day"><option>2일</option><option>3일</option></select>
+		</td>
+	</tr>
+	<tr>
+		<th>취미</th>
+		<td>
+			<input type="checkbox" name="hobby">축구 
+			<input type="checkbox" name="hobby">야구
+		</td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<input type="submit" value="전송"/>
+			<input type="reset" value="재설정">
+		</th>
+	</tr>
+</table>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.java{
+	color:pink;
+	font-size:15px;
+}	
+.script{
+	color:skyblue;
+	font-size:10px;	
+}
+#aa{
+	color:#ff00ff;
+}
+#bb{
+	color:#00ff00;
+}

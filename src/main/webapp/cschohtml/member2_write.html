@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+body{
+	font-size:12px;
+}	
+table{
+	width:500px;
+	border-collapse:collapse;
+}
+th,td{
+	border:1px solid #dfdfdf;
+	padding:5px;	
+}
+</style>
+<script>
+function fn_action(){
+	if(document.frm.userid.value==""){
+		alert("아이디를 입력해주세요");
+		return false;
+	}
+	if(document.frm.passwd.value==""){
+		alert("비번을 입력해주세요");
+		return false;
+	}
+	var len=document.frm.userid.value.length;
+	if(len < 4|| len > 12){
+		alert("아이디의 길이를 조정하세요");
+		return false;
+	}
+	var gubun = 0;
+	for(var i=0;i<document.frm.gender.length;i++){
+		if(document.frm.gender[i].checked == true){
+			gubun = 1;	
+		}
+	}
+	if(gubun == 0){
+		alert("성별을 입력하세요")
+		return false;		
+	}
+	gubun = 0;
+	for(var i=0;i<document.frm.subject.length;i++){
+		if(document.frm.subject[i].checked == true){
+			gubun = 1;	
+		}
+	}
+	if(gubun == 0){
+		alert("과목을 입력하세요")
+		return false;		
+	}
+	
+	if(document.frm.year.value == "" || 
+		document.frm.month.value == "" || 
+		document.frm.day.value == ""){
+		alert("생일을 입력하세요");
+	}
+	document.frm.submit();
+}	
+</script>	
+<body>
+<form name="frm" method="post" action="">
+<table border="0">
+	<tr>
+		<th>아이디</th>
+		<td><input type="text" name="userid"/></td>
+	</tr>
+	<tr>
+		<th>비번</th>
+		<td><input type="password" name="passwd"/></td>
+	</tr>
+	<tr>
+		<th>성별</th>
+		<td>
+			<input type="radio" name="gender" value="M"/>남성 
+			<input type="radio" name="gender" value="F"/>여성
+		</td>
+	</tr>
+	<tr>
+		<th>과목</th>
+		<td>
+			<input type="checkbox" name="subject" value="java"/>java 
+			<input type="checkbox" name="subject" value="mysql"/>mysql 
+			<input type="checkbox" name="subject" value="html"/>html 
+		</td>
+	</tr>
+	<tr>
+		<th>생일</th>
+		<td>
+			<select name="year">
+				<option value="">년선택</option>
+				<script>
+				for(var y=1940;y<2023;y++){
+					document.write("<option value=\""+y+"\">"+y+"년</option>");
+				}
+				</script>
+			</select>
+			<select name="month">
+				<option value="">월선택</option>
+				<script>
+				for(var m=1;m<=12;m++){
+					document.write("<option value=\""+m+"\">"+m+"월</option>");
+				}
+				</script>
+			</select>
+			<select name="day">
+				<option value="">일선택</option>
+				<script>
+				for(var d=1;d<=12;d++){
+					document.write("<option value=\""+d+"\">"+d+"일</option>");
+				}
+				</script>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<input type="submit" onclick="fn_action();"/>	
+		</th>
+	</tr>
+</table>
+</form>
+</body>
+</html>

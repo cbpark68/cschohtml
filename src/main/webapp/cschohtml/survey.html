@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+function fn_action(){
+	var gubun = 0;
+	for(var i=0;i<document.frm.ans.length;i++){
+		if(document.frm.ans[i].checked == true){
+			gubun = 1;
+		}
+	}
+	if(gubun == 0){
+		alert("항목을 체크해주세요")
+		return false;
+	}
+	
+	document.frm.submit();
+}	
+</script>
+<body>
+<form name="frm">
+가장 좋은 것은? <br/>	
+<input type="radio" name="ans" value="1"/>헬스<br/>
+<input type="radio" name="ans" value="2"/>수영<br/>	
+<input type="radio" name="ans" value="3"/>달리기<br/>
+<input type="radio" name="ans" value="4"/>자전거<br/>	
+<button type="button" onclick="fn_action();">투표하기</button>
+</form>
+</body>
+</html>

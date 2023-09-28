@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이력서양식</title>
+</head>
+<style>
+body{
+	font-size:12px;
+}	
+</style>
+<body>
+<table border="0" width="600" cellpadding="3" cellspacing="1" bgcolor="#cccccc">
+	<tr bgcolor="white">
+		<th colspan="3" height="40">이력서</th>
+	</tr>	
+	<tr bgcolor="white">
+		<td rowspan="4" width="1p0" height="80">
+			<img src="images/hero.jpg" width="120"/>
+		</td>
+		<th width="100">이름</th>
+		<td><input type="text" name="name"></td>
+	</tr>
+	<tr bgcolor="white">
+		<th>연락처</th>
+		<td><input type="text" name="phone"></td>
+	</tr>
+	<tr bgcolor="white">
+		<th>출생년도</th>
+		<td>
+			<select name="year"><option value="2000">2000년</option><option value="2001">2001년</option></select> 
+			<select name="month"><option value="2">2월</option><option value="3">3월</option></select> 
+			<select name="day"><option value="2">2일</option><option value="3">3일</option></select>
+		</td>
+	</tr>
+	<tr bgcolor="white">
+		<th>성별</th>
+		<td>
+			<input type="radio" name="gender" value="M">남
+			<input type="radio" name="gender" value="F">여
+		</td>
+	</tr>
+	
+</table>
+</body>
+</html>

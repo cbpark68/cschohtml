@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+body{
+	font-size:12px;
+}	
+table{
+	width:600px;
+	border-collapse:collapse;
+}
+th,td{
+	border:1px solid #dfdfdf;
+	padding:5px;	
+}
+input{
+	width:200px;
+}
+textarea{
+	width:98%;
+	height:100px;
+}
+.button_div{
+	width:600px;
+	text-align:center;
+	margin-top:10px;
+}
+</style>
+<script>
+function fn_submit(){
+	if(document.frm.title.value == ""){
+		alert("제목을 입력하세요");
+		document.frm.title.focus();
+		return false;
+	}
+	if(document.frm.pass.value == ""){
+		alert("비번을 입력하세요");
+		document.frm.pass.focus();
+		return false;
+	}
+	if(document.frm.content.value == ""){
+		alert("내용을 입력하세요");
+		document.frm.content.focus();
+		return false;
+	}
+	
+	document.frm.submit();
+}	
+</script>
+<body>
+<form name="frm" method="post" action="">
+<table>
+<colgroup>
+	<col width="30%"/>
+	<col width="*"/>
+</colgroup>
+<tr>
+	<th>제목</th>
+	<td><input type="text" name="title"/></td>
+</tr>	
+<tr>
+	<th>암호</th>
+	<td><input type="password" name="pass"/></td>
+</tr>	
+<tr>
+	<th>글쓴이</th>
+	<td><input type="text" name="name"/></td>
+</tr>	
+<tr>
+	<th>이메일</th>
+	<td><input type="email" name="email"/></td>
+</tr>	
+<tr>
+	<th>내용</th>
+	<td>
+		<textarea name="content"></textarea>
+	</td>
+</tr>	
+</table>
+<div class="button_div">
+	<button type="button" onclick="fn_submit();">저장</button>
+	<button type="reset">재작성</button>
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+function fn_check(){
+	if(document.frm.chk.checked == false){
+		alert("약관에 동의해주세요");
+		return false;
+	}
+	location = "member_write.html";
+}	
+</script>
+<body>
+<div style="width:300px;height:100px;background-color:yellow;">
+약관입니다.<br/>
+</div>
+<form name="frm" method="post" action="">
+<input type="checkbox" name="chk" value="1"/>
+위 약관에 동의합니다.<br/>
+<button type="button" onclick="fn_check();">다음</button>
+</form>
+</body>
+</html>
