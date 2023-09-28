@@ -8,7 +8,7 @@
 String url = "jdbc:mysql://localhost:3306/cschodb";
 String username = "cscho";
 String pass = "1234";
-Class.forName("com.mysql.cj.jdbc.Driver");
+Class.forName("com.mysql.jdbc.Driver");
 Connection conn = DriverManager.getConnection(url, username, pass);
 Statement stmt = conn.createStatement();
 String sql = "select deptno,dname,loc from dept";
@@ -31,6 +31,7 @@ th, td {
 }
 </style>
 <body>
+	<button type="button" onclick="location='deptWrite.jsp'">부서등록</button>
 	<table>
 		<tr>
 			<th>번호</th>
@@ -42,10 +43,13 @@ th, td {
 		int count = 0;
 		while (rs.next()) {
 			count++;
+			String no = rs.getString("deptno");
 		%>
 		<tr>
 			<td><%=count%></td>
-			<td><%=rs.getString("deptno")%></td>
+			<td>
+			<a href="deptModify.jsp?deptno=<%=no%>"><%=no%></a>
+			</td>
 			<td><%=rs.getString("dname")%></td>
 			<td><%=rs.getString("loc")%></td>
 		</tr>
