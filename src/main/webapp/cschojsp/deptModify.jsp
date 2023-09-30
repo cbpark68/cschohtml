@@ -13,7 +13,7 @@ String pass = "1234";
 Class.forName("com.mysql.jdbc.Driver");
 Connection conn = DriverManager.getConnection(url, username, pass);
 Statement stmt = conn.createStatement();
-String sql = "select dname,loc from dept where deptno = "+deptno;
+String sql = "select dname,loc from dept where deptno = " + deptno;
 ResultSet rs = stmt.executeQuery(sql);
 rs.next();
 String dname = rs.getString("dname");
@@ -36,12 +36,20 @@ th, td {
 	padding: 5px;
 }
 </style>
+<script>
+function fn_delete(){
+ 	if(confirm("정말 삭제하기겠습니까?")){
+		location="deptDelete.jsp?deptno=<%=deptno%>";
+	}
+}
+</script>
 <body>
 	<form name="frm" method="post" action="deptModifySave.jsp">
 		<table>
 			<tr>
 				<th>부서번호</th>
-				<td><input type="text" name="deptno" value="<%=deptno%>" readonly /></td>
+				<td><input type="text" name="deptno" value="<%=deptno%>"
+					readonly /></td>
 			</tr>
 			<tr>
 				<th>부서명</th>
@@ -52,7 +60,10 @@ th, td {
 				<td><input type="text" name="loc" value="<%=loc%>" /></td>
 			</tr>
 			<tr>
-				<th colspan="2"><input type="submit" /></th>
+				<th colspan="2">
+					<button type="submit">수정</button>
+					<button type="button" onclick="fn_delete()">삭제</button>
+				</th>
 			</tr>
 		</table>
 	</form>
