@@ -9,11 +9,16 @@ rs.next();
 int myno = rs.getInt("myno");
 
 Calendar cal = Calendar.getInstance();
-int y = cal.get(Calendar.YEAR);
-int m = cal.get(Calendar.MONTH)+1;
-int d = cal.get(Calendar.DATE);
+String y = cal.get(Calendar.YEAR)+"";
+String m = (cal.get(Calendar.MONTH)+1)+"";
+String d = cal.get(Calendar.DATE)+"";
+if(Integer.parseInt(m)<10){
+	m = "0"+m;	
+}
+if(Integer.parseInt(d)<10){
+	d = "0"+d;	
+}
 String date = y+"/"+m+"/"+d;
-
 %>
 <!DOCTYPE html>
 <html>
@@ -71,10 +76,10 @@ function fn_submit(){
 						</tr>
 						<tr>
 							<th>등급</th>
-							<td><select name="grade" multiple >
-									<option value="">특별회원</option>
-									<option value="">우수회원</option>
-									<option value="">일반회원</option>
+							<td><select name="grade" size="3" >
+									<option value="S">특별회원</option>
+									<option value="A">우수회원</option>
+									<option value="B">일반회원</option>
 							</select></td>
 						</tr>
 						<tr>
@@ -87,7 +92,7 @@ function fn_submit(){
 						</tr>
 						<tr>
 							<th>등록일자</th>
-							<td><input type="text" name="rdate" value="<%=date%>" /></td>
+							<td><input type="text" name="date" value="<%=date%>" /></td>
 						</tr>
 					</table>
 					<div style="width: 100%; text-align: center;">
