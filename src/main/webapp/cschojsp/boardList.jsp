@@ -2,12 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="include/dbConn.jsp"%>
 <%
+int unit = 5;
+String vpage = request.getParameter("vpage");
+if(vpage == null || vpage.equals("")){
+	vpage = "1";
+}
+int v_page = Integer.parseInt(vpage);
+int index_no = (v_page-1)*unit;
 String sqlTot = "select count(*) cnt from nboard";
 ResultSet rs2 = stmt.executeQuery(sqlTot);
 rs2.next();
 int tot = rs2.getInt("cnt");
-int rowno = tot;
-String sql = "select unq,title,name,date_format(rdate,'%Y-%m-%d') rdate,hits from nboard order by unq desc";
+int rowno = tot - index_no;
+int lastpage = (int)Math.ceil((double)tot/unit);
+String sql = "select unq,title,name,date_format(rdate,'%Y-%m-%d') rdate,hits ";
+sql += "from nboard order by unq desc limit "+index_no+","+unit;
 ResultSet rs = stmt.executeQuery(sql);
 %>
 <!DOCTYPE html>
@@ -80,6 +89,15 @@ ResultSet rs = stmt.executeQuery(sql);
 						%>
 					</tbody>
 				</table>
+				<div style="width:600px;text-align:center;margin-top:10px;">
+				<%
+				for(int i=1;i<=lastpage;i++){
+					%>
+					<a href="boardList.jsp?vpage=<%=i%>"><%=i%></a>
+					<%
+				}
+				%>	
+				</div>
 			</article>
 		</section>
 		<footer><%@include file="boardFooter.jsp"%></footer>
