@@ -4,19 +4,19 @@
 <%
 int unit = 5;
 String vpage = request.getParameter("vpage");
-if(vpage == null || vpage.equals("")){
+if (vpage == null || vpage.equals("")) {
 	vpage = "1";
 }
 int v_page = Integer.parseInt(vpage);
-int index_no = (v_page-1)*unit;
+int index_no = (v_page - 1) * unit;
 String sqlTot = "select count(*) cnt from reboard";
 ResultSet rs2 = stmt.executeQuery(sqlTot);
 rs2.next();
 int tot = rs2.getInt("cnt");
 int rowno = tot - index_no;
-int lastpage = (int)Math.ceil((double)tot/unit);
-String sql = "select unq,title,name,date_format(rdate,'%Y-%m-%d') rdate,hits ";
-sql += "from reboard order by unq desc limit "+index_no+","+unit;
+int lastpage = (int) Math.ceil((double) tot / unit);
+String sql = "select unq,title,name,date_format(rdate,'%Y-%m-%d') rdate,hits,gid,thread ";
+sql += "from reboard order by gid desc,thread asc limit " + index_no + "," + unit;
 ResultSet rs = stmt.executeQuery(sql);
 %>
 <!DOCTYPE html>
@@ -75,10 +75,21 @@ ResultSet rs = stmt.executeQuery(sql);
 							String name = rs.getString("name");
 							String rdate = rs.getString("rdate");
 							int hits = rs.getInt("hits");
+							String thread = rs.getString("thread");
+							int len = thread.length();
+							String re = "";
+							if (len > 1)
+								re = "[re]";
 						%>
 						<tr align="center">
 							<td><%=rowno%></td>
-							<td><a href="reBoardDetail.jsp?unq=<%=unq%>"><%=title%></a></td>
+							<td align="left">
+								<%
+								for (int i = 0; i < len; i++) {
+									out.print("&nbsp;&nbsp;&nbsp;");
+								}
+								%><%=re%><a href="reBoardDetail.jsp?unq=<%=unq%>"><%=title%></a>
+							</td>
 							<td><%=name%></td>
 							<td><%=rdate%></td>
 							<td><%=hits%></td>
@@ -89,14 +100,14 @@ ResultSet rs = stmt.executeQuery(sql);
 						%>
 					</tbody>
 				</table>
-				<div style="width:600px;text-align:center;margin-top:10px;">
-				<%
-				for(int i=1;i<=lastpage;i++){
+				<div style="width: 600px; text-align: center; margin-top: 10px;">
+					<%
+					for (int i = 1; i <= lastpage; i++) {
 					%>
 					<a href="reBoardList.jsp?vpage=<%=i%>"><%=i%></a>
 					<%
-				}
-				%>	
+					}
+					%>
 				</div>
 			</article>
 		</section>
