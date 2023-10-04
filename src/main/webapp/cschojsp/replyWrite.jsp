@@ -2,26 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%
 String unq = request.getParameter("unq");
-String gubun = request.getParameter("gubun");
 if (unq == null || unq.equals("")) {
 %><script>
-	alert("경로오류");
-	location = "boardList.jsp";
-</script>
+		alert("경로오류");
+		location = "reboardList.jsp";
+	</script>
 <%
 return;
 }
-String durl = "boardDelete.jsp";
-if(gubun.equals("R")){
-	durl = "reBoardDelete.jsp";
-}
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>답변게시판</title>
 </head>
 <link rel="stylesheet" href="css/boardMain.css" />
 <style>
@@ -37,6 +31,11 @@ if(gubun.equals("R")){
 	function fn_submit() {
 		var f = document.frm;
 
+		if (f.title.value == "") {
+			alert("제목을 입력해 주세요");
+			f.title.focus();
+			return false;
+		}
 		if (f.pass.value == "") {
 			alert("비번을 입력해 주세요");
 			f.pass.focus();
@@ -47,10 +46,10 @@ if(gubun.equals("R")){
 	}
 
 	function fn_onload() {
-		document.frm.pass.focus();
+		document.frm.title.focus();
 	}
 </script>
-<body onload="fn_onload();">
+<body onload="fn_onload()">
 	<div class="wrap">
 		<header>
 			<div class="top_logo"></div>
@@ -64,25 +63,37 @@ if(gubun.equals("R")){
 		<aside><%@include file="boardLeftMenu.jsp"%></aside>
 		<section>
 			<article>
-				<form name="frm" method="post" action="<%=durl%>">
-					<input type="hidden" name="unq" value="<%=unq%>" />
-					<table style="width: 400px; position: relative; left: 100px">
-						<caption>게시판비번입력화면</caption>
+				<form name="frm" method="post" action="replyWriteSave.jsp">
+				<input type="hidden" name="unq" value="<%=unq%>"/>
+					<table>
+						<caption>답변입력화면</caption>
 						<colgroup>
 							<col width="25%" />
 							<col width="*" />
 						</colgroup>
 						<tbody>
 							<tr>
+								<th>제목</th>
+								<td>Re : <input type="text" name="title" class="box_title"
+									required /></td>
+							</tr>
+							<tr>
 								<th>비번</th>
 								<td><input type="password" name="pass" class="box_name"
-									maxlength="20" required /></td>
+									required /></td>
+							</tr>
+							<tr>
+								<th>이름</th>
+								<td><input type="text" name="name" class="box_name" /></td>
+							</tr>
+							<tr>
+								<th>내용</th>
+								<td><textarea name="content" rows="7" cols="50"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
 					<div style="width: 600px; text-align: center; margin-top: 10px;">
-						<button type="button" onclick="history.back();">뒤로가기</button>
-						<button type="submit" onclick="fn_submit();return false;">삭제</button>
+						<button type="submit" onclick="fn_submit();return false;">저장</button>
 						<button type="reset">취소</button>
 					</div>
 				</form>
