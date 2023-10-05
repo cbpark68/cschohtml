@@ -84,11 +84,15 @@ td {
 			return false;
 		}
 		var url = "member2IdCheck.jsp?userid="+userid;
-		window.open(url,"아이디중복확인","width=300,height=200");
+		var w = window.screen.width/2-150;
+		var h = window.screen.height/2-100;
+		window.open(url,"idcheck","width=300,height=200,left="+w+",top="+h);
 	}
 	
 	function fn_post(){
-		open("post1.jsp","post","width=500,height=200");
+		var w = window.screen.width/2-150;
+		var h = window.screen.height/2-100;
+		open("post1.jsp","post","width=500,height=200,left="+w+",top="+h);
 	}
 </script>
 <body onload="fn_onload()">
