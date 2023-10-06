@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="util.CookieUtil"%>
+<%
+String cookieid = "";
+CookieUtil cookie = new CookieUtil(request);
+if (cookie.exists("CookieUserId") && !cookie.getValue("CookieUserId").equals("")) {
+	cookieid = cookie.getValue("CookieUserId");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,19 +16,19 @@
 </head>
 <link rel="stylesheet" href="css/boardMain.css" />
 <script>
-function fn_submit(){
-	if(document.frm.userid.value == ""){
-		alert("아이디를 입력하세요");
-		document.frm.userid.focus();
-		return false;
+	function fn_submit() {
+		if (document.frm.userid.value == "") {
+			alert("아이디를 입력하세요");
+			document.frm.userid.focus();
+			return false;
+		}
+		if (document.frm.pass.value == "") {
+			alert("비번을 입력하세요");
+			document.frm.pass.focus();
+			return false;
+		}
+		document.frm.submit();
 	}
-	if(document.frm.pass.value == ""){
-		alert("비번을 입력하세요");
-		document.frm.pass.focus();
-		return false;
-	}
-	document.frm.submit();
-}
 </script>
 <body>
 	<div class="wrap">
@@ -46,7 +54,9 @@ function fn_submit(){
 						<tbody>
 							<tr>
 								<td>아이디</td>
-								<td><input type="text" name="userid" /></td>
+								<td><input type="text" name="userid" value="<%=cookieid%>" /><br />
+									<input type="checkbox" name="idsave" value="1"
+									<%if (!cookieid.equals("")) { out.print("checked"); }%> />아이디기억하기</td>
 							</tr>
 							<tr>
 								<td>비번</td>
