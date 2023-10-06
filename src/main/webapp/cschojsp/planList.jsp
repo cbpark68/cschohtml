@@ -2,6 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+String sessionid = (String) session.getAttribute("SessionUserId");
+if (sessionid == null) {
+%><script>
+		alert("로그인화면으로 이동합니다");
+		location = "loginWrite.jsp";
+	</script>
+<%
+return;
+}
 request.setCharacterEncoding("utf-8");
 String pyear = request.getParameter("pyear");
 String pmonth = request.getParameter("pmonth");
@@ -10,10 +19,10 @@ int cyear = cal.get(Calendar.YEAR);
 int year = cal.get(Calendar.YEAR);
 int month = cal.get(Calendar.MONTH) + 1;
 if (pyear != null && !pyear.equals("")) {
-	year = Integer.parseInt(pyear);
+year = Integer.parseInt(pyear);
 }
 if (pmonth != null && !pmonth.equals("")) {
-	month = Integer.parseInt(pmonth);
+month = Integer.parseInt(pmonth);
 }
 cal.set(year, month - 1, 1);
 int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
@@ -21,14 +30,14 @@ int lastday = cal.getActualMaximum(Calendar.DATE);
 int prev_year = year;
 int prev_month = month - 1;
 if (prev_month < 1) {
-	prev_year = year - 1;
-	prev_month = 12;
+prev_year = year - 1;
+prev_month = 12;
 }
 int next_year = year;
 int next_month = month + 1;
 if (next_month > 12) {
-	next_year = year + 1;
-	next_month = 1;
+next_year = year + 1;
+next_month = 1;
 }
 %>
 <!DOCTYPE html>
@@ -47,22 +56,28 @@ if (next_month > 12) {
 .tdiv2 {
 	float: left;
 	width: 40%;
+	text-align: center;
 }
 
 .tdiv3 {
 	float: left;
 	width: 30%;
 	text-align: right;
-	background: yellow;
 }
 </style>
 <script>
 	function fn_planwrite() {
-		var w = window.screen.width / 2 - 200;
+<%
+if (sessionid == null) {%>
+	alert("로그인으로 이동합니다");
+		location = "loginWrite.jsp";
+<%} else {%>
+	var w = window.screen.width / 2 - 200;
 		var h = window.screen.height / 2 - 200;
-		var url = "planwrite.jsp";
+		var url = "planWrite.jsp";
 		window.open(url, "planwrite", "width=400,height=400,left=" + w
 				+ ",top=" + h);
+<%}%>
 	}
 </script>
 <body>
@@ -89,7 +104,7 @@ if (next_month > 12) {
 						<button type="button"
 							onclick="location='<%=request.getRequestURI()%>?pyear=<%=next_year%>&pmonth=<%=next_month%>'">이전</button>
 					</div>
-					<div style="float: left; width: 30%; text-align: right;">
+					<div class="tdiv3">
 						&nbsp;
 						<button type="button" onclick="fn_planwrite();">일정등록</button>
 					</div>
