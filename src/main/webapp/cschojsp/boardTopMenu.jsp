@@ -22,7 +22,7 @@
 	<li class="menulink"><a href="member2Modify.jsp">정보수정</a></li>
 	<li class="menulink"><a href="logout.jsp">로그아웃</a></li>
 	<%}%>
-	<li class="menulink"><a href="#">일정관리</a></li>
+	<li class="menulink"><a href="planList.jsp">일정관리</a></li>
 	<li class="menulink"><a href="#">대화방</a></li>
 </body>
 </html>
