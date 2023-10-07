@@ -7,8 +7,9 @@ String pdate = request.getParameter("pdate");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 
-String sql = "insert into plan (userid,pdate,title,content) values ('" + sessionid + "','" + pdate + "','" + title
-		+ "','" + content + "') ";
+String sql = "update plan set ";
+sql += " title='"+title+"',content='"+content+"' ";
+sql += " where userid = '"+sessionid+"' and pdate='"+pdate+"'";
 int rs = stmt.executeUpdate(sql);
 %>
 <script>

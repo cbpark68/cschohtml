@@ -1,16 +1,10 @@
+<%@page import="com.mysql.cj.protocol.Resultset"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="include/dbConn.jsp"%>
+<%@ include file="include/certificate.jsp"%>
 <%
-String sessionid = (String) session.getAttribute("SessionUserId");
-if (sessionid == null) {
-%><script>
-		alert("로그인화면으로 이동합니다");
-		location = "loginWrite.jsp";
-	</script>
-<%
-return;
-}
 request.setCharacterEncoding("utf-8");
 String pyear = request.getParameter("pyear");
 String pmonth = request.getParameter("pmonth");
@@ -19,10 +13,10 @@ int cyear = cal.get(Calendar.YEAR);
 int year = cal.get(Calendar.YEAR);
 int month = cal.get(Calendar.MONTH) + 1;
 if (pyear != null && !pyear.equals("")) {
-year = Integer.parseInt(pyear);
+	year = Integer.parseInt(pyear);
 }
 if (pmonth != null && !pmonth.equals("")) {
-month = Integer.parseInt(pmonth);
+	month = Integer.parseInt(pmonth);
 }
 cal.set(year, month - 1, 1);
 int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
@@ -30,14 +24,14 @@ int lastday = cal.getActualMaximum(Calendar.DATE);
 int prev_year = year;
 int prev_month = month - 1;
 if (prev_month < 1) {
-prev_year = year - 1;
-prev_month = 12;
+	prev_year = year - 1;
+	prev_month = 12;
 }
 int next_year = year;
 int next_month = month + 1;
 if (next_month > 12) {
-next_year = year + 1;
-next_month = 1;
+	next_year = year + 1;
+	next_month = 1;
 }
 %>
 <!DOCTYPE html>
@@ -71,13 +65,21 @@ next_month = 1;
 if (sessionid == null) {%>
 	alert("로그인으로 이동합니다");
 		location = "loginWrite.jsp";
-<%} else {%>
+<%return;
+} else {%>
 	var w = window.screen.width / 2 - 200;
 		var h = window.screen.height / 2 - 200;
 		var url = "planWrite.jsp";
 		window.open(url, "planwrite", "width=400,height=400,left=" + w
 				+ ",top=" + h);
 <%}%>
+	}
+	function fn_detail(pdt) {
+		var url = "planView.jsp?pdate=" + pdt;
+		var w = window.screen.width / 2 - 200;
+		var h = window.screen.height / 2 - 200;
+		window.open(url, "planview", "width=400,height=400,left=" + w + ",top="
+				+ h);
 	}
 </script>
 <body>
@@ -134,22 +136,36 @@ if (sessionid == null) {%>
 							} else if (count == 1) {
 								color = "red";
 							}
-							out.print("<td style=\"color:" + color + "\">" + d + "</td>");
-							if (count == 7) {
-								count = 0;
-								out.print("</tr><tr>");
-							}
+							String pdate = year + "-" + month + "-" + d;
+							String psql = "select count(*) cnt from plan where userid='" + sessionid + "' and pdate = '" + pdate + "'";
+							ResultSet prs = stmt.executeQuery(psql);
+							prs.next();
+							int pcnt = prs.getInt("cnt");
+							if (pcnt > 0) {
+								color = "pink";
+						%>
+						<td style="background-color:<%=color%>;"><a
+							href="javascript:fn_detail('<%=pdate%>');"><%=d%></a></td>
+						<%
+						} else {
+						%>
+						<td style="color:<%=color%>;"><%=d%></td>
+						<%
+						}
+						if (count == 7) {
+						count = 0;
+						out.print("</tr><tr>");
+						}
 						}
 						if (count != 0) {
-							while (count < 7) {
-								count++;
-								out.print("<td></td>");
-							}
+						while (count < 7) {
+						count++;
+						out.print("<td></td>");
+						}
 						}
 						%>
 					</tr>
 				</table>
-
 			</article>
 		</section>
 		<footer><%@include file="boardFooter.jsp"%></footer>
